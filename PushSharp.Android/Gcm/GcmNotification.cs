@@ -92,13 +92,22 @@ namespace PushSharp.Android
 		public bool? DryRun 
 		{ 
 			get; 
-			set; 
-		}
-		
-		/// <summary>
-		/// A string that maps a single user to multiple registration IDs associated with that user. This allows a 3rd-party server to send a single message to multiple app instances (typically on multiple devices) owned by a single user.
-		/// </summary>
-		public string NotificationKey { get; set; }
+			set;
+        }
+
+        /// <summary>
+        /// If true, priority attribute will be sent in payload with "high" value
+        /// </summary>
+        public bool? Priority
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// A string that maps a single user to multiple registration IDs associated with that user. This allows a 3rd-party server to send a single message to multiple app instances (typically on multiple devices) owned by a single user.
+        /// </summary>
+        public string NotificationKey { get; set; }
 
 		/// <summary>
 		/// A string containing the package name of your application. When set, messages will only be sent to registration IDs that match the package name
@@ -138,8 +147,11 @@ namespace PushSharp.Android
 			if (!string.IsNullOrWhiteSpace(this.TargetPackageName))
 				json["restricted_package_name"] = TargetPackageName;
 
+            if (Priority.HasValue && Priority.Value)
+                json["priority"] = "high";
 
-			return json.ToString();
+
+            return json.ToString();
 		}
 
 		public override string ToString()

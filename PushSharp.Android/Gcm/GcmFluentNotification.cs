@@ -79,6 +79,12 @@ namespace PushSharp
 		{
 			n.DryRun = true;
 			return n;
-		}
-	}
+        }
+
+        public static GcmNotification WithPriority(this GcmNotification n)
+        {
+            n.Priority = true;
+            return n;
+        }
+    }
 }
